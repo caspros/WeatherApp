@@ -52,19 +52,24 @@
 
             // Add geocoder result to container.
             geocoder.on('result', function (e) {
-                const obj = JSON.parse(JSON.stringify(e.result, null, 2));
-                console.log(obj.text);
-                console.log(obj.center);
+                const location = JSON.parse(JSON.stringify(e.result, null, 2));
+                console.log(location.text);
+                console.log(location.center);
 
 
 
-                let url = 'https://api.openweathermap.org/data/2.5/onecall?lat='  + obj.center[1] +
-                    '&lon=' + obj.center[0] + '&exclude=hourly,daily&appid=' + '{!! env('OPEN_WEATHER_APP_KEY') !!}';
+                let url = 'https://api.openweathermap.org/data/2.5/onecall?lat='  + location.center[1] +
+                    '&lon=' + location.center[0] + '&exclude=hourly,daily&appid=' + '{!! env('OPEN_WEATHER_APP_KEY') !!}';
 
+                let weather;
                 fetch(url)
                     .then(response => response.json())
-                    .then(data => results.innerText = JSON.stringify(data, null, 2));
-                
+                    //.then(data => results.innerText = JSON.stringify(data, null, 2))
+                    .then(data => weather = data)
+                    .then(() => console.log(weather.current.temp - 273));
+
+                //console.log(weather.timezone)
+
             });
 
             // Clear results container when search is cleared.
