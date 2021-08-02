@@ -32,6 +32,10 @@
         </style>
 
         <div id="geocoder"></div>
+
+        <div id="weather">
+
+        </div>
         <pre id="result"></pre>
 
         <script>
@@ -49,27 +53,26 @@
             // Add geocoder result to container.
             geocoder.on('result', function (e) {
                 const obj = JSON.parse(JSON.stringify(e.result, null, 2));
+                console.log(obj.text);
                 console.log(obj.center);
 
+
+
                 let url = 'https://api.openweathermap.org/data/2.5/onecall?lat='  + obj.center[1] +
-                    '&lon=' + obj.center[0] + '&exclude=hourly,daily&appid=0b29d6213b5f95920d27c28322eb81ce';
+                    '&lon=' + obj.center[0] + '&exclude=hourly,daily&appid=' + '{!! env('OPEN_WEATHER_APP_KEY') !!}';
 
                 fetch(url)
                     .then(response => response.json())
                     .then(data => results.innerText = JSON.stringify(data, null, 2));
+                
             });
 
             // Clear results container when search is cleared.
             geocoder.on('clear', function () {
                 results.innerText = '';
             });
+
         </script>
-
-
-        <!--
-            https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid=0b29d6213b5f95920d27c28322eb81ce
-
-              -->
 
     </div>
 
