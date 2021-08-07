@@ -1,0 +1,47 @@
+body {
+    background-color: #64A6BD;
+}
+
+#weather_card {
+    margin-left: 4rem;
+    color: white;
+    font-family: Monaco;
+    width: 22rem;
+    height: 18rem;
+    background-color: #277ed9;
+    padding: 0.5rem;
+    text-align: center;
+    opacity: 0.85;
+    border-radius: 20px;
+}
+
+#daily_forecast {
+    float: left;
+    font-size: 20px;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    color: white;
+    font-family: Monaco;
+    width: 13rem;
+    height: 17rem;
+    background-color: #ADA7C9;
+    padding: 0.1rem;
+    text-align: center;
+    opacity: 0.85;
+    border-radius: 20px;
+}
+
+.temperature {
+    font-size: 60px;
+    float: left;
+    margin-left: 15%;
+}
+
+.icon_main {
+    clear: both;
+}
+
+.parameters {
+    margin-left: 1.25rem;
+    float: left;
+}

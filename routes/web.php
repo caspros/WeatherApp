@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Zttp\Zttp;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('weather', function () {
+    $openWeatherApiKey = config('services.open_weather.key');
+
+    $lat = request('lat');
+    $lon = request('lon');
+
+    $response = Zttp::get("https://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&exclude=hourly,minutely&appid=$openWeatherApiKey");
+
+    return $response->json();
 });
