@@ -25,8 +25,6 @@
     </head>
     <body>
         <div id="container">
-
-
             <style>
                 #search_bar {
                     z-index: 1;
@@ -40,23 +38,13 @@
 
             <div id="search_bar"></div>
 
-
-            <pre id="result">
-
-            </pre>
-
             <div id="info">
                 <h1><i style="color: white; margin-left: 4rem;">Please type the city to check the forecast.</i></h1>
             </div>
 
             <div id="weather_card" style="visibility:hidden;"></div>
 
-
-            <div id="forecast">
-
-            </div>
-
-
+            <div id="forecast"></div>
 
             <script>
                 mapboxgl.accessToken = '{!! env('MAPBOX_APP_KEY') !!}'
@@ -76,8 +64,6 @@
 
                 search_bar.on('result', function (e) {
                     const location = JSON.parse(JSON.stringify(e.result, null, 2));
-                    console.log(location.text);
-                    console.log(location.center);
 
                     let url ='/weather?lat=' + location.center[1] +
                         '&lon=' + location.center[0];
@@ -86,7 +72,6 @@
                         const response = await fetch(url);
                         const weather = await response.json();
 
-                        console.log(weather);
                         const weather_info =
                         {
                             temp: (weather.current.temp - 273).toFixed(1),
@@ -102,11 +87,10 @@
 
                         let date = new Date();
                         let today = date.getDay();
-                        console.log();
                         document.getElementById('weather_card').style.visibility = "visible";
                         document.getElementById('info').style.display = "none";
                         document.getElementById('weather_card').innerHTML =
-                            `<h3>` + location.text + `, ` + weekdays[today] + `, ` + date.getDay() + ` ` + months[date.getMonth()] +`</h3>
+                            `<h3>` + location.text + `, ` + weekdays[today] + `, ` + date.getDate() + ` ` + months[date.getMonth()] +`</h3>
                             <h1 class="temperature">` + weather_info['temp'] + ` &#8451;</h1>
                             <img class="icon_main" src='http://openweathermap.org/img/wn/` + weather_info['icon'] + `@2x.png' alt="Weather icon">
                             <h3><i>` + weather_info['description'] + `</i></h3>
